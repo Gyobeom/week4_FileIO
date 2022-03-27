@@ -24,11 +24,35 @@
 # #     print(line, end='')
 # fp.close()
 
-#with 파일 사용 후 자동으로 파일 종료 
-with open("wf.txt" , encoding="UTF-8") as fp:
-    lines = fp.readlines()
-    for line in lines:
-        print(line[:-1])
+#with 파일 사용 후 자동으로 파일 종료
+# with open("wf.txt" , encoding="UTF-8") as fp:
+#     lines = fp.readlines()
+#     for line in lines:
+#         print(line[:-1])
+
+#안주 프로그램 V 0.4
+import random
+
+alcohols_foods= {}
+with open("alcohols.txt", encoding="UTF-8") as fp1:
+    with open("foods.txt",encoding="UTF-8") as fp2:
+        alcohols = fp1.readlines()
+        foods = fp2.readlines()
+        for k in range(len(alcohols)):
+            alcohols_foods[alcohols[k].strip('\n')] = foods[k][0:-1] #마지막 역슬래쉬 제거
+print(alcohols_foods)
+
+while True:
+    alcohol = input('주문하실 술(맥주/와인/소주/고량주/아무거나/결제)은?')
+    if alcohol == '결제':
+        break
+    if alcohol in alcohols_foods.keys():
+        print('{0}에 어울리는 안주는 {1}입니다.'.format(alcohol, alcohols_foods[alcohol]))
+    elif alcohol == '아무거나':
+        alcohol = str(random.choice(list(alcohols_foods)))
+        print('{0}을 추천합니다. 안주는 {1}입니다.'.format(alcohol, alcohols_foods[alcohol]))
+    else:
+        print('{0}는 판매하지 않습니다.메뉴에서 골라주세요'.format(alcohol))
 
 
 
